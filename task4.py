@@ -1,5 +1,6 @@
 from functools import wraps
 from Classes.AddressBook import AddressBook
+from Classes.Record import Record
 
 def input_error(func):
     def inner(*args, **kwargs):
@@ -33,7 +34,7 @@ def parse_input(user_input):
     return cmd, *args
 
 @input_error
-def add_contact(args, contacts):
+def add_contact(args, book: AddressBook):
     """
     Add a new contact to the contact list.
 
@@ -49,8 +50,15 @@ def add_contact(args, contacts):
              is successfully added.
     """
     name, phone = args
-    contacts[name] = phone
-    return "Contact added."
+    record = book.find(name)
+    message = "Contact updated."
+    if record is None:
+        record = Record(name)
+        book.add_record(record)
+        message = "Contact added."
+    if phone:
+        record.add_phone(phone)
+    return message
 
 @input_error
 def change_contact(args, contacts):
@@ -94,7 +102,7 @@ def phone_contact(args, contacts):
     return f"Calling {name} {phone}."
 
 @input_error
-def all_contacts(contacts):
+def all_contacts(book: AddressBook):
     """
     Return a string representation of all contacts.
 
@@ -105,7 +113,7 @@ def all_contacts(contacts):
     Returns:
         str: String representation of the entire contacts dictionary.
     """
-    return f"{contacts}"
+    return f"{book.__str__()}"
 
 def main():
     """
