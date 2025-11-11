@@ -1,4 +1,5 @@
 from functools import wraps
+from Classes.AddressBook import AddressBook
 
 def input_error(func):
     def inner(*args, **kwargs):
@@ -120,7 +121,7 @@ def main():
         - 'close' or 'exit' : Ends the program.
     """
     
-    contacts = {}
+    book = AddressBook()
     print("Welcome to the assistant bot!")
     while True:
         user_input = input("Enter a command: ")
@@ -136,13 +137,13 @@ def main():
         elif command == "hello":
             print("How can I help you?")
         elif command == "add":
-            print(add_contact(args, contacts))
+            print(add_contact(args, book))
         elif command == "change":
-            print(change_contact(args, contacts))
+            print(change_contact(args, book))
         elif command == "phone":
-            print(phone_contact(args, contacts))
+            print(phone_contact(args, book))
         elif command == "all":
-            print(all_contacts(contacts))
+            print(all_contacts(book))
         else:
             print("Invalid command.")
 
