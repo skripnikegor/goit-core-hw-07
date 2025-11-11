@@ -1,5 +1,5 @@
-from Name import Name
-from Phone import Phone
+from .Name import Name
+from .Phone import Phone
 
 class Record:
     def __init__(self, name):

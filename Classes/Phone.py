@@ -1,5 +1,5 @@
 import re
-from Field import Field
+from .Field import Field
 
 class Phone(Field):
     def __init__(self, value):

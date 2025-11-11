@@ -1,4 +1,5 @@
-from Classes.AddressBook import AddressBook, Record
+from Classes.AddressBook import AddressBook
+from Classes.Record import Record
 
 
 
