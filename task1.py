@@ -27,7 +27,7 @@ john = book.find("John")
 
 john.edit_phone("1234567890", "1112223333")
 
-john.add_birthday("01.10.2000")
+john.add_birthday("13.11.2000")
 
 
 
@@ -39,9 +39,12 @@ print(f"{john.name}: {found_phone}")  # Виведення: John: 5555555555
 
 print(book.__str__())
 
+print(book.get_upcoming_birthdays())
+
 # Видалення запису Jane
 book.delete("Jane")
 
 
-john.edit_phone("1234567890", "1112223333")
-print(john)
+
+# john.edit_phone("1234567890", "1112223333")
+# print(john)
