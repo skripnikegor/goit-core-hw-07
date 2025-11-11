@@ -3,11 +3,11 @@ from datetime import datetime
 
 class Birthday(Field):
     def __init__(self, value):
-        self.birthdate = self.__str_to_date(value)
-        
-    
-    def __str_to_date(self, value):
         try:
-            return datetime.strptime(value, "%d.%m.%Y")
+            date = datetime.strptime(value, "%d.%m.%Y").date()
         except ValueError:
             raise ValueError("Invalid date format. Use DD.MM.YYYY")
+        super().__init__(date)
+
+    def __str__(self):
+        return self.value.strftime("%d.%m.%Y")
