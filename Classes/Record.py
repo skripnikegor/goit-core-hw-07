@@ -33,8 +33,8 @@ class Record:
             raise ValueError(f"Can not find {phone_number} in the phone book.")
         
     def add_birthday(self, birthday_date: str):
-        if self.birthday:
-            return "Birthday alredy defined"
+        if self.birthday != None:
+            raise ValueError("Birthday alredy defined")
         birthday = Birthday(birthday_date)
         self.birthday = birthday
 

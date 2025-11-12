@@ -105,8 +105,8 @@ def phone_contact(args, book: AddressBook):
     record = book.find(name)
     if record:
         try:
-            callable_number = record.phones[0]
-            return f"Calling {name} {callable_number}."
+            callable_number = ", ".join([phone.value for phone in record.phones])
+            return f"Nimbers {name}: {callable_number}."
         except Exception as e:
             return f"Calling error. {e}"
     return f"Can not find {name} in the address book."
@@ -127,6 +127,33 @@ def all_contacts(book: AddressBook):
     """
     address_book = f"{book.__str__()}"
     return address_book if address_book != "" else "The book is empty."
+
+
+@input_error
+def add_birthday(args, book: AddressBook):
+    name, birthday = args
+    record = book.find(name)
+    try:
+        record.add_birthday(birthday)
+        return f"Added birthday {birthday} to {name}."
+    except Exception as e:
+        return f"Error while adding birthday to {name}. {e}"
+
+@input_error
+def show_birthday(args, book: AddressBook):
+    name = args[0]
+    record = book.find(name)
+    try:
+        birthday = record.birthday.value
+        return f"{name} birthday - {birthday}"
+    except Exception as e:
+        return f"Error while receiving {name} birthday. {e}"
+
+@input_error
+def birthdays(book: AddressBook):
+    bd = book.get_upcoming_birthdays()
+    return "\n".join([f"{d['name']} - {d['congratulation_date']}" for d in bd])
+
 
 def main():
     """
@@ -165,6 +192,12 @@ def main():
             print(phone_contact(args, book))
         elif command == "all":
             print(all_contacts(book))
+        elif command == "add-birthday":
+            print(add_birthday(args, book))
+        elif command == "show-birthday":
+            print(show_birthday(args, book))
+        elif command == "birthdays":
+            print(birthdays(book))
         else:
             print("Invalid command.")
 
