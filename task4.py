@@ -61,7 +61,7 @@ def add_contact(args, book: AddressBook):
     return message
 
 @input_error
-def change_contact(args, contacts):
+def change_contact(args, book: AddressBook):
     """
     Change the phone number of an existing contact.
 
@@ -77,9 +77,12 @@ def change_contact(args, contacts):
              is successfully updated.
 
     """
-    name, phone = args
-    contacts[name] = phone
-    return "Contact changed."
+    name, old_phone, new_phone = args
+    record = book.find(name)
+    if not record:
+        return f"There is no contact {name} in the book"
+    return "Contact has been updated." if record.edit_phone(old_phone, new_phone) else "There is an error while updating contact"
+    
 
 @input_error
 def phone_contact(args, contacts):
