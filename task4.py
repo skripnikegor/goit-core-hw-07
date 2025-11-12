@@ -86,7 +86,7 @@ def change_contact(args, book: AddressBook):
     
 
 @input_error
-def phone_contact(args, contacts):
+def phone_contact(args, book: AddressBook):
     """
     Retrieve and display the phone number of a specified contact.
 
@@ -102,8 +102,16 @@ def phone_contact(args, contacts):
              If the contact is not found, phone will be displayed as "None".
     """
     name = args[0]
-    phone = contacts.get(name)
-    return f"Calling {name} {phone}."
+    record = book.find(name)
+    if record:
+        try:
+            callable_number = record.phones[0]
+            return f"Calling {name} {callable_number}."
+        except Exception as e:
+            return f"Calling error. {e}"
+    return f"Can not find {name} in the address book."
+    
+    
 
 @input_error
 def all_contacts(book: AddressBook):
