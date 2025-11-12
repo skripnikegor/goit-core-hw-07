@@ -6,8 +6,8 @@ def input_error(func):
     def inner(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except ValueError:
-            return "Give me name and phone please."
+        except ValueError as e:
+            return f"Error in request. {e}"
         except KeyError:
             return "Wrong name"
         except IndexError:
@@ -80,8 +80,9 @@ def change_contact(args, book: AddressBook):
     name, old_phone, new_phone = args
     record = book.find(name)
     if not record:
-        return f"There is no contact {name} in the book"
-    return "Contact has been updated." if record.edit_phone(old_phone, new_phone) else "There is an error while updating contact"
+        return f"There is no contact {name} in the book."
+    record.edit_phone(old_phone, new_phone)
+    return "Contact has been updated."
     
 
 @input_error
@@ -116,7 +117,8 @@ def all_contacts(book: AddressBook):
     Returns:
         str: String representation of the entire contacts dictionary.
     """
-    return f"{book.__str__()}"
+    address_book = f"{book.__str__()}"
+    return address_book if address_book != "" else "The book is empty."
 
 def main():
     """

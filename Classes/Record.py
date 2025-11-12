@@ -17,10 +17,12 @@ class Record:
         self.phones.remove(phone)
 
     
-    def edit_phone(self, old_number, new_number):
-        phone = self.find_phone(old_number)
-        if phone:
-            self.remove_phone(phone)
+    def edit_phone(self, old_number, new_number) -> bool:
+        old_phone = self.find_phone(old_number)
+        new_phone = Phone(new_number)
+        
+        if old_phone and new_phone:
+            self.remove_phone(old_phone)
             self.add_phone(new_number)
                  
     def find_phone(self, phone_number):
@@ -28,7 +30,7 @@ class Record:
             if phone_number == phone:
                 return phone
         else:
-            raise ValueError(f"Can not find {phone_number} in the phone book")
+            raise ValueError(f"Can not find {phone_number} in the phone book.")
         
     def add_birthday(self, birthday_date: str):
         if self.birthday:
