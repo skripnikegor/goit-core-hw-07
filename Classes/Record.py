@@ -17,13 +17,14 @@ class Record:
         self.phones.remove(phone)
 
     
-    def edit_phone(self, old_number, new_number) -> bool:
+    def edit_phone(self, old_number, new_number):
         old_phone = self.find_phone(old_number)
-        new_phone = Phone(new_number)
-        
-        if old_phone and new_phone:
-            self.remove_phone(old_phone)
+
+        if old_phone:
             self.add_phone(new_number)
+            self.remove_phone(old_phone)
+        else:
+            raise ValueError("Can not change prone number.")
                  
     def find_phone(self, phone_number):
         for phone in self.phones:

@@ -29,11 +29,13 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except ValueError as e:
-            return f"Error in request. {e}"
+            return f"Error in request. Please check documentation."
         except KeyError:
-            return "Wrong name"
+            return "Wrong name."
         except IndexError:
             return "Give me name"
+        except AttributeError:
+            return f"Can not find your value in the book."
 
     return inner
 
@@ -187,13 +189,8 @@ def phone_contact(args, book: AddressBook):
     """
     name = args[0]
     record = book.find(name)
-    if record:
-        try:
-            callable_number = ", ".join([phone.value for phone in record.phones])
-            return f"Nimbers {name}: {callable_number}."
-        except Exception as e:
-            return f"Calling error. {e}"
-    return f"Can not find {name} in the address book."
+    callable_number = ", ".join([phone.value for phone in record.phones])
+    return f"Nimbers {name}: {callable_number}."
     
     
 
@@ -246,11 +243,8 @@ def add_birthday(args, book: AddressBook):
     """
     name, birthday = args
     record = book.find(name)
-    try:
-        record.add_birthday(birthday)
-        return f"Added birthday {birthday} to {name}."
-    except Exception as e:
-        return f"Error while adding birthday to {name}. {e}"
+    record.add_birthday(birthday)
+    return f"Added birthday {birthday} to {name}."
 
 @input_error
 def show_birthday(args, book: AddressBook):
@@ -280,11 +274,8 @@ def show_birthday(args, book: AddressBook):
     """
     name = args[0]
     record = book.find(name)
-    try:
-        birthday = record.birthday.value
-        return f"{name} birthday - {birthday}"
-    except Exception as e:
-        return f"Error while receiving {name} birthday. {e}"
+    birthday = record.birthday.value
+    return f"{name} birthday - {birthday}"
 
 @input_error
 def birthdays(book: AddressBook):
