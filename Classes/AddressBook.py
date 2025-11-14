@@ -52,4 +52,4 @@ class AddressBook(UserDict):
         return upcoming_birthdays
 
     def __str__(self):
-        return ", ".join(f"{key}: {value}" for key, value in self.data.items())
+        return "\n".join(f"{key}: {value}" for key, value in self.data.items())
