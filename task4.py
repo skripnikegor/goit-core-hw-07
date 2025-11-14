@@ -29,7 +29,7 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except ValueError as e:
-            return f"Error in request. Please check documentation."
+            return f"Error in request. Please check documentation. {e}"
         except KeyError:
             return "Wrong name."
         except IndexError:
@@ -336,7 +336,7 @@ def main():
     Contact added.
     Enter a command: phone John
     Nimbers John: 1234567890.
-    Enter a command: add-birthday John 1990-05-01
+    Enter a command: add-birthday John 01.05.1990
     Added birthday 01.05.1990 to John.
     Enter a command: show-birthday John
     John birthday - 01.05.1990
