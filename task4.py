@@ -29,13 +29,15 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except ValueError as e:
-            return f"Error in request. Please check documentation. {e}"
+            return f"Error in request. Please check documentation"
         except KeyError:
             return "Wrong name."
         except IndexError:
-            return "Give me name"
+            return "Give me name."
         except AttributeError:
             return f"Can not find your value in the book."
+        except TypeError:
+            return f"Error while chech dates."
 
     return inner
 

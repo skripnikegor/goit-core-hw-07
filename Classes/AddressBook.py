@@ -16,6 +16,9 @@ class AddressBook(UserDict):
     def __date_to_string(self, date):
         return date.strftime("%d.%m.%Y")
     
+    def __string_to_date(self, date_string):
+        return datetime.strptime(date_string, "%d.%m.%Y").date()
+    
     def __find_next_weekday(self, start_date, weekday):
         days_ahead = weekday - start_date.weekday()
         if days_ahead <= 0:
@@ -34,10 +37,11 @@ class AddressBook(UserDict):
 
         for user_name, user_data in users:
             try:
-                bithday_date = user_data.birthday.value
+                bithday_date = self.__string_to_date(user_data.birthday.value)
             except:
                 break
             birthday_this_year = bithday_date.replace(year=today.year)
+            print(birthday_this_year)
 
             if birthday_this_year < today:
                 birthday_this_year = birthday_this_year.replace(year=today.year + 1)
