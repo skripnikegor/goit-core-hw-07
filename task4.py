@@ -152,8 +152,6 @@ def change_contact(args, book: AddressBook):
     """
     name, old_phone, new_phone = args
     record = book.find(name)
-    if not record:
-        return f"There is no contact {name} in the book."
     record.edit_phone(old_phone, new_phone)
     return "Contact has been updated."
     
