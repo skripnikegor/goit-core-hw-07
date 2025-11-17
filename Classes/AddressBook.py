@@ -39,9 +39,8 @@ class AddressBook(UserDict):
             try:
                 bithday_date = self.__string_to_date(user_data.birthday.value)
             except:
-                break
+                continue
             birthday_this_year = bithday_date.replace(year=today.year)
-            print(birthday_this_year)
 
             if birthday_this_year < today:
                 birthday_this_year = birthday_this_year.replace(year=today.year + 1)
