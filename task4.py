@@ -29,13 +29,13 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except ValueError as e:
-            return f"Incorrect command format. Use the required arguments. {e}"
+            return f"Incorrect command format. Use the required arguments."
         except KeyError:
             return "Wrong name."
         except IndexError:
             return "Give me name."
         except AttributeError as e:
-            return f"Can not find your value in the book. {e}"
+            return f"Can not find your value in the book."
         except TypeError:
             return f"Error while chech dates."
 
