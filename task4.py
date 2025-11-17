@@ -29,7 +29,7 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except ValueError as e:
-            return f"Error in request. Please check documentation"
+            return f"Wrong request."
         except KeyError:
             return "Wrong name."
         except IndexError:
